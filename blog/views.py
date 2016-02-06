@@ -2,6 +2,7 @@ from urllib.parse import quote_plus
 
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render,get_object_or_404, redirect
 from django.utils import timezone
@@ -10,15 +11,39 @@ from .models import Post
 from .forms import PostForm
 
 # Create your views here.
+
+def recent_posts(request):
+    query_list = Post.objects.active()
+    if request.user.is_staff or request.user.is_superuser:
+        query_list = Post.objects.all()
+
+    context = {
+    "page_title": "Home",
+    "query_list": query_list,
+    }
+
+    return render(request,"index.html", context)
+
+
 def post_list(request):
     query_list = Post.objects.active()
     if request.user.is_staff or request.user.is_superuser:
         query_list = Post.objects.all()
+
+    search_query = request.GET.get("q")
+    if search_query:
+        query_list = query_list.filter(
+        Q(title__icontains=search_query) |
+        Q(content__icontains=search_query) |
+        Q(user__first_name__icontains=search_query) |
+        Q(user__last_name__icontains=search_query)
+        ).distinct()
+
     paginator = Paginator(query_list, 5)
     page_request_var = "page"
     page = request.GET.get("page")
 
-    all_posts = paginator.count
+    total_posts = paginator.count
     try:
         page_list = paginator.page(page)
     except PageNotAnInteger:
@@ -30,7 +55,7 @@ def post_list(request):
     "list": page_list,
     "page_title": "All Articles",
     "page_request_var": page_request_var,
-    "all_articles": all_posts
+    "all_articles": total_posts
     }
     return render(request,"post_list.html", context)
 
@@ -52,7 +77,7 @@ def post_create(request):
 
 def post_detail(request, slug):
     instance = get_object_or_404(Post, slug= slug)
-    if instance.draft or instance.published_date > timezone.now().date():
+    if instance.draft or instance.published_date > timezone.now():
         if not request.user.is_staff or not request.user.is_superuser:
             raise Http404
     share_string = quote_plus(instance.content)

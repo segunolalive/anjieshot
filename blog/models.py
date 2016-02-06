@@ -27,11 +27,15 @@ class Post(models.Model):
     width_field = models.IntegerField(default=0)
     content = models.TextField()
     draft = models.BooleanField(default=False)
-    published_date = models.DateField(auto_now=False, auto_now_add=False)
+    published_date = models.DateTimeField(blank=True, null=True)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
-    timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+    # timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     objects = PostManager()
+
+    def publish(self):
+        self.published_date = timezone.now()
+        self.save()
 
     def __str__(self):
         return self.title
@@ -43,7 +47,7 @@ class Post(models.Model):
         return reverse("post:detail", kwargs={"slug":self.slug})
 
     class Meta:
-        ordering = ["-timestamp","-updated"]
+        ordering = ["-published_date","-updated"]
 
 
 def create_slug(instance, new_slug=None):

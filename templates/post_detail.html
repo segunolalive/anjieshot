@@ -11,8 +11,8 @@
       <img src="{{instance.image.url}}" alt="" class="img-responsive" />
     {% endif %}
       <h1>{{instance.title}}
-        {% if instance.draft %}<span style="color:red">This is a Draft</span>{% endif %}<small>{{instance.published_date}}</small></h1>
-        
+        {% if instance.draft %}<span style="color:red">This is a Draft</span>{% endif %}<small>{{instance.published_date | timesince}}</small></h1>
+
       {% if instance.user.get_full_name%}
       <p>Author: {{instance.user.get_full_name}}</p>
       {% endif %}
