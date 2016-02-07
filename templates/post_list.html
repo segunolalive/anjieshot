@@ -63,7 +63,7 @@
           <span class="current">
               Page {{ list.number }} of {{ list.paginator.num_pages }}.
           </span>
-
+          <span>
           {% if list.has_next %}
               <!--<a href="?page={{ list.next_page_number }}">next</a>-->
               <a href="?{{page_request_var}}={{ list.next_page_number }}
