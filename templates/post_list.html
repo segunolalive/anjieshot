@@ -4,14 +4,19 @@
   {{page_title}} | {{block.super}}
 {% endblock %}
 
+
 {% block content %}
 <div class="col-sm-6 col-sm-offset-3">
+
+  <div class="search_form">
+    <form id="search" action="" method="GET">
+      <input type="text" name="q" placeholder="Search Posts" value="{{request.GET.q}}"/>
+      <input type="Submit" value="Search"/>
+    </form>
+  </div>
+
   <h1 id="page_title">{{page_title}}</h1>
 
-  <form class="" action="" method="GET">
-    <input type="text" name="q" placeholder="Search Posts" value="{{request.GET.q}}"/>
-    <input type="Submit" value="Search"/>
-  </form>
 
   {% for item in list %}
     <div class="row">

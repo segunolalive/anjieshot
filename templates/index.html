@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
 <div class="col-sm-6 col-sm-offset-3">
-  <h1 id="page_title">{{page_title}}</h1>
+  
+  <div class="search_form">
+    <form id="search" action="" method="GET">
+      <input type="text" name="q" placeholder="Search Posts" value="{{request.GET.q}}"/>
+      <input type="Submit" value="Search"/>
+    </form>
+  </div>
 
-  <form class="" action="" method="GET">
-    <input type="text" name="q" placeholder="Search Posts" value="{{request.GET.q}}"/>
-    <input type="Submit" value="Search"/>
-  </form>
+  <h1 id="page_title">{{page_title}}</h1>
 
   {% for item in query_list %}
     <div class="row">

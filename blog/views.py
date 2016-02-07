@@ -13,12 +13,12 @@ from .forms import PostForm
 # Create your views here.
 
 def recent_posts(request):
-    query_list = Post.objects.active()
+    query_list = Post.objects.active()[:2]
     if request.user.is_staff or request.user.is_superuser:
-        query_list = Post.objects.all()
+        query_list = Post.objects.all()[:2]
 
     context = {
-    "page_title": "Home",
+    "page_title": "Recent Articles",
     "query_list": query_list,
     }
 

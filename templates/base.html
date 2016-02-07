@@ -1,9 +1,11 @@
 <!--DOCTYPE html-->
 
-{% load staticfiles %}
+{% load static from staticfiles %}
 
 <html>
   <head>
+    <meta charset="utf-8">
+
     <title>{% block head_title %}AnjieShot{% endblock %}</title>
 
     <!-- Latest compiled and minified CSS -->
@@ -11,9 +13,14 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
+    <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+    <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 
   </head>
+
   <body>
     <div id="fb-root"></div>
        <script>(function(d, s, id) {
@@ -25,25 +32,56 @@
        }(document, 'script', 'facebook-jssdk'));</script>
 
        <div class="page-header">
-            {% if user.is_authenticated %}
-            <a href="post/create" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-            {% endif %}
+          <h1 id="corner-name"><a href="/">AnjieSHOT</a></h1>
+      </div>
+
+
+    <div class="jumbotron">
+      <!-- <div class="row"> -->
+        <div class="container">
+          <div class="col-md-6 col-sm-6">
+              <h1><small>Welcome To </small>AnjieSHOT</h1>
+              <p>
+                <small>The daily life of this pharmacist</small>
+              </p>
+          </div>
+
+          <div class="col-md-6 col-sm-6">
+            <img src="{% static 'images/anjy.jpg' %}" alt="" class="img-responsive pull-right"/>
+          </div>
         </div>
-
-    {% include "message_display.html" %}
-
-    <div class="banner">
-           <!--<img src="{% static 'images/jumbotron.jpg' %}" class="img-responsive col-sm-12 offset-1">-->
-            <h1><a href="/">AnjieSHOT</a></h1>
-            </div>
+      <!-- </div> -->
     </div>
 
+    <div class="clearfix"></div>
 
-    <div class="container">
+    <div class="menu-wrap">
+      <nav class="menu">
+          <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="{% url 'post:list' %}">All Posts</a></li>
+              {% if user.is_authenticated %}
+               <li><a href="{% url 'post:create' %}">Create Post</a></li>
+              {% endif %}
+          </ul>
+      </nav>
+   </div>
+
+
+
+
+   {% include "message_display.html" %}
+
+
+
       {% block content %}
 
       {% endblock content %}
     </div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
