@@ -8,18 +8,23 @@
 {% block content %}
 <div class="col-sm-6 col-sm-offset-3">
 
-  <div class="search_form">
+  <!-- <div class="search_form">
     <form id="search" action="" method="GET">
       <input type="text" name="q" placeholder="Search Posts" value="{{request.GET.q}}"/>
       <input type="Submit" value="Search"/>
     </form>
-  </div>
+  </div> -->
+
+
+
+
 
   <h1 id="page_title">{{page_title}}</h1>
 
 
   {% for item in list %}
     <div class="row">
+
       <div class="col-sm-12">
         <div class="thumbnail">
           {% if item.image %}
@@ -33,7 +38,7 @@
             <h3>Staff Only: Future Post</h3>
             {% endif %}
 
-            <h3><a href="{{item.get_absolute_url}}">{{item.title}}<small>{{item.published_date| timesince}}</small></a></h3>
+            <h3><a href="{{item.get_absolute_url}}">{{item.title}}<small id="date">{{item.published_date| timesince}}</small></a></h3>
 
             {% if item.user.get_full_name%}
             <p>Author: {{item.user.get_full_name}}</p>
@@ -61,7 +66,8 @@
           {% endif %}
 
           <span class="current">
-              Page {{ list.number }} of {{ list.paginator.num_pages }}.
+              Page {{ list.number }} of {{ list.paginator.num_pages }} Showing
+              item {{list.start_index}} to {{list.end_index}} of {{all_articles}}
           </span>
           <span>
           {% if list.has_next %}
@@ -73,9 +79,9 @@
               class="btn btn-primary" role="button">
               Next Page</a>
           {% endif %}
-          showing item {{list.start_index}} to {{list.end_index}} of {{all_articles}}
+
       </span>
   </div>
 
-</div
+</div>
 {% endblock content %}

@@ -2,39 +2,36 @@
 
 
 {% block content %}
-<div class="col-sm-6 col-sm-offset-3">
 
-  
-
+<div class="">
   <h1 id="page_title">{{page_title}}</h1>
+</div>
 
-  {% for item in query_list %}
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="thumbnail">
-          {% if item.image %}
-          <img src="{{item.image.url}}" alt="" class="img-responsive" />
-          {% endif %}
-          <div class="caption">
-            {% if item.draft %}
-            <h3 style="color:red">Staff Only: Draft</h3>
-            {% endif %}
-            {% if item.published_date > timezone.now %}
-            <h3>Staff Only: Future Post</h3>
-            {% endif %}
 
-            <h3><a href="{{item.get_absolute_url}}">{{item.title}}<small>{{item.published_date| timesince}}</small></a></h3>
+  <div class="recent-row row">
+      {% for item in recent_articles %}
+          <div class="recent col-md-6">
 
-            {% if item.user.get_full_name%}
-            <p>Author: {{item.user.get_full_name}}</p>
-            {% endif %}
+                    {% if item.draft %}
+                    <h3 style="color:red">Staff Only: Draft</h3>
+                    {% endif %}
+                    {% if item.published_date > timezone.now %}
+                    <h3>Staff Only: Future Post</h3>
+                    {% endif %}
 
-            <p>{{item.content| linebreaks | truncatewords:30}}</p>
-            <p><a href="{{item.get_absolute_url}}" class="btn btn-primary" role="button">Read Full Article</a></p>
-          </div>
-        </div>
-      </div>
-      <hr>
-    </div>
-  {% endfor %}
+                    <h3><a href="{{item.get_absolute_url}}"> {{item.title}}<small id="date"> {{item.published_date| timesince}} ago</small></a></h3>
+
+                    {% if item.user.get_full_name%}
+                    <p id="author">Author: {{item.user.get_full_name}}</p>
+                    <hr>
+                    {% endif %}
+                    <blockquote cite="">
+                    <p>{{item.content| linebreaks | truncatewords:30}}. . .</p>
+                    </blockquote><hr>
+                    <p><a href="{{item.get_absolute_url}}" class="btn btn-primary" role="button">Read Full Article</a></p>
+
+            </div>
+      {% endfor %}
+  </div>
+</div>
 {% endblock %}

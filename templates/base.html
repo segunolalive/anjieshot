@@ -8,6 +8,8 @@
 
     <title>{% block head_title %}AnjieShot{% endblock %}</title>
 
+    <!-- local bootstrap. To be removed before pushing -->
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <!-- Optional theme -->
@@ -73,11 +75,30 @@
    {% include "message_display.html" %}
 
 
+<div class="content col-md-8 col-md-offset-2">
+      <div class="search_form container">
+        <div class="col-sm-4 col-sm-offset-4">
+            <form id="search" action="" method="GET">
+              <div class="input-group">
+                <input class="form-control" type="text" name="q" placeholder="Search Posts" value="{{request.GET.q}}"/>
+                <span class="input-group-btn">
+                  <input type="Submit" value="Search" class="btn"/>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
 
       {% block content %}
 
       {% endblock content %}
-    </div>
+</div>
+
+  <footer>
+    <small id="copyright"><p>
+      © copyright AnjieSHOT 2016
+    </p></small>
+  </footer>
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

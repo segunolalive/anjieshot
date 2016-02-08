@@ -13,13 +13,25 @@ from .forms import PostForm
 # Create your views here.
 
 def recent_posts(request):
-    query_list = Post.objects.active()[:2]
+    query_list = Post.objects.active()
+    recent_articles = Post.objects.active()[:2]
     if request.user.is_staff or request.user.is_superuser:
-        query_list = Post.objects.all()[:2]
+        recent_articles = Post.objects.all()[:2]
+
+    search_query = request.GET.get("q")
+    if search_query:
+        query_list = query_list.filter(
+        Q(title__icontains=search_query) |
+        Q(content__icontains=search_query) |
+        Q(user__first_name__icontains=search_query) |
+        Q(user__last_name__icontains=search_query)
+        ).distinct()
+
+        recent_articles = query_list
 
     context = {
     "page_title": "Recent Articles",
-    "query_list": query_list,
+    "recent_articles": recent_articles,
     }
 
     return render(request,"index.html", context)
