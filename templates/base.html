@@ -9,6 +9,8 @@
     <title>{% block head_title %}AnjieShot{% endblock %}</title>
 
     <!-- local bootstrap. To be removed before pushing -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-theme.css' %}">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -23,6 +25,8 @@
 
   </head>
 
+
+
   <body>
     <div id="fb-root"></div>
        <script>(function(d, s, id) {
@@ -33,29 +37,29 @@
          fjs.parentNode.insertBefore(js, fjs);
        }(document, 'script', 'facebook-jssdk'));</script>
 
-       <div class="page-header">
-          <h1 id="corner-name"><a href="/">AnjieSHOT</a></h1>
-      </div>
+    <div class="page-header">
+       <h1 id="corner-name"><a href="/">AnjieSHOT</a></h1>
+   </div>
 
 
     <div class="jumbotron">
       <!-- <div class="row"> -->
         <div class="container">
-          <div class="col-md-6 col-sm-6">
+          <div class="col-sm-6">
               <h1><small>Welcome To </small>AnjieSHOT</h1>
               <p>
                 <small>The daily life of this pharmacist</small>
               </p>
           </div>
 
-          <div class="col-md-6 col-sm-6">
+          <div class="col-sm-6">
             <img src="{% static 'images/anjy.jpg' %}" alt="" class="img-responsive pull-right"/>
           </div>
         </div>
       <!-- </div> -->
     </div>
 
-    <div class="clearfix"></div>
+    <!-- <div class="clearfix"></div> -->
 
     <div class="menu-wrap">
       <nav class="menu">
@@ -71,34 +75,30 @@
 
 
 
-
    {% include "message_display.html" %}
 
+<!-- Search Field -->
+<div class="container">
+<div class="row">
+  <div class="content col-sm-10 col-sm-offset-2">
 
-<div class="content col-md-8 col-md-offset-2">
-      <div class="search_form container">
-        <div class="col-sm-4 col-sm-offset-4">
-            <form id="search" action="" method="GET">
-              <div class="input-group">
-                <input class="form-control" type="text" name="q" placeholder="Search Posts" value="{{request.GET.q}}"/>
-                <span class="input-group-btn">
-                  <input type="Submit" value="Search" class="btn"/>
-                </span>
-              </div>
-            </form>
-          </div>
-        </div>
 
-      {% block content %}
+        {% block content %}
 
-      {% endblock content %}
+        {% endblock content %}
+  </div>
+
+  <div class="col-sm-12">
+    <footer>
+      <small id="copyright"><p>
+        © copyright AnjieSHOT 2016
+      </p></small>
+    </footer>
 </div>
 
-  <footer>
-    <small id="copyright"><p>
-      © copyright AnjieSHOT 2016
-    </p></small>
-  </footer>
+</div>
+</div>
+
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -107,4 +107,6 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   </body>
+
+
 </html>

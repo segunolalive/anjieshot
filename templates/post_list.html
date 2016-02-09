@@ -6,23 +6,13 @@
 
 
 {% block content %}
-<div class="col-sm-6 col-sm-offset-3">
+{% include "search_form.html" %}
 
-  <!-- <div class="search_form">
-    <form id="search" action="" method="GET">
-      <input type="text" name="q" placeholder="Search Posts" value="{{request.GET.q}}"/>
-      <input type="Submit" value="Search"/>
-    </form>
-  </div> -->
-
-
-
-
+<div class="col-sm-8 col-sm-offset-2">
 
   <h1 id="page_title">{{page_title}}</h1>
 
-
-  {% for item in list %}
+    {% for item in list %}
     <div class="row">
 
       <div class="col-sm-12">

@@ -16,6 +16,6 @@ urlpatterns = [
     url(r'^post/create/$', post_create, name="create"),
     url(r'^post/(?P<slug>[\w-]+)/$', post_detail, name="detail"),
     url(r'^post/(?P<slug>[\w-]+)/edit/$', post_edit, name="edit"),
-    url(r'^post/delete/$', post_delete, name="delete"),
+    url(r'^post/(?P<slug>[\w-]+)/delete/$', post_delete, name="delete"),
 
     ]

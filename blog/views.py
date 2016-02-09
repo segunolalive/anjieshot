@@ -14,7 +14,9 @@ from .forms import PostForm
 
 def recent_posts(request):
     query_list = Post.objects.active()
+    total_posts = query_list.count
     recent_articles = Post.objects.active()[:2]
+
     if request.user.is_staff or request.user.is_superuser:
         recent_articles = Post.objects.all()[:2]
 
@@ -29,9 +31,12 @@ def recent_posts(request):
 
         recent_articles = query_list
 
+
+
     context = {
     "page_title": "Recent Articles",
     "recent_articles": recent_articles,
+    "all_articles": total_posts
     }
 
     return render(request,"index.html", context)
@@ -39,6 +44,7 @@ def recent_posts(request):
 
 def post_list(request):
     query_list = Post.objects.active()
+    total_posts = query_list.count
     if request.user.is_staff or request.user.is_superuser:
         query_list = Post.objects.all()
 
@@ -89,16 +95,22 @@ def post_create(request):
 
 def post_detail(request, slug):
     instance = get_object_or_404(Post, slug= slug)
+
+    share_string = quote_plus(instance.content)
+
+
     if instance.draft or instance.published_date > timezone.now():
         if not request.user.is_staff or not request.user.is_superuser:
             raise Http404
-    share_string = quote_plus(instance.content)
     context = {
         "title": "instance.title",
         "instance": instance,
         "share_string": share_string,
     }
+
     return render(request,"post_detail.html", context)
+
+
 
 def post_edit(request, slug):
     if not request.user.is_staff or not request.user.is_superuser:
