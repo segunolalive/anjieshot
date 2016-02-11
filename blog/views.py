@@ -19,6 +19,8 @@ def recent_posts(request):
 
     if request.user.is_staff or request.user.is_superuser:
         recent_articles = Post.objects.all()[:2]
+        query_list = Post.objects.all()
+        total_posts = query_list.count
 
     search_query = request.GET.get("q")
     if search_query:
